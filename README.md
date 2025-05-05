@@ -1,75 +1,73 @@
-# 🐺 WolfSound's Audio Plugin Template
+# NinsEQ - Dynamic Equalizer VST3 Plugin
 
-![Cmake workflow success badge](https://github.com/JanWilczek/audio-plugin-template/actions/workflows/cmake.yml/badge.svg)
+A dynamic equalizer VST3 plugin built with JUCE framework. Features three filter bands (highpass, mid bell, lowpass) with dynamic processing capabilities on the mid bell band.
 
-Want to create an audio plugin (e.g., a VST3 plugin) with C++ but don't know how to go about?
+## Features
 
-Heard about the [JUCE C++ framework](https://github.com/juce-framework/JUCE) but not sure how to start a JUCE project?
+- Three-band EQ with highpass, mid bell, and lowpass filters
+- Dynamic processing on the mid bell band with threshold, ratio, attack, and release controls
+- Real-time spectrum analyzer
+- Interactive frequency response curve display
+- Available as VST3 plugin and standalone application
 
-Want to use CMake with JUCE but don't know how?
+## Requirements
 
-Want to be able to easily integrate third-party C++ libraries to your project?
+- CMake 3.22 or newer
+- C++ compiler with C++20 support
+- VS Code (for build instructions below)
 
-Want to unit test your audio plugin?
+## Building the Project with VS Code
 
-Want to ensure maximum safety of your software?
+### Prerequisites
 
-And all this with a click of a button?
+1. Install [Visual Studio Code](https://code.visualstudio.com/)
+2. Install the following VS Code extensions:
+   - [C/C++ Extension Pack](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools-extension-pack)
+   - [CMake Tools](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cmake-tools)
 
-Well, this template allows you to immediately start your JUCE C++ framework audio plugin project with a CMake-based project structure. It involves
+### Build Steps
 
-* clear repo structure
-* C++ 23 standard
-* effortless handling of third-party dependencies with the CPM package manager; use the C++ libraries you want together with JUCE
-* highest warning level and "treat warnings as errors"
-* ready-to-go unit test project with GoogleTest
+1. Clone the repository and open it in VS Code
+2. Configure CMake:
+   - Press `Ctrl+Shift+P` to open the command palette
+   - Type "CMake: Configure" and select it
+   - Choose the compiler you want to use (e.g., Visual Studio, GCC, Clang)
 
-Additionally
+3. Build the project:
+   - Press `Ctrl+Shift+P` again
+   - Type "CMake: Build" and select it
+   - Alternatively, click on the "Build" button in the CMake Tools status bar at the bottom of VS Code
 
-* continuous integration made easy with Github actions: build and run tests on the main branch and on every pull request
-* automatic clang-format on C++ files run on every commit; don't worry about code formatting anymore!
+4. To run the standalone application:
+   - Press `Ctrl+Shift+P`
+   - Type "CMake: Run Without Debugging" and select it
+   - Choose the "NinsEQ_Standalone" target
 
-I am personally using this template all the time.
+### Plugin Installation
 
-Feel free to propose suggestions 😉
+After building, you'll find the VST3 plugin in the build folder. To install it:
 
-## Usage
+- Windows: Copy the `.vst3` file to `C:\Program Files\Common Files\VST3`
+- macOS: Copy the `.vst3` file to `/Library/Audio/Plug-Ins/VST3`
+- Linux: Copy the `.vst3` file to `/usr/local/lib/vst3`
 
-This is a template repository which means you can right click "Use this template" on GitHub and create your own repo out of it.
+## Using the Plugin
 
-After cloning it locally, you can proceed with the usual CMake workflow.
+1. **Highpass Filter**:
+   - Use the "HP Freq" knob to set the cutoff frequency
+   - Use the "HP Q" knob to adjust the resonance
 
-In the main repo directory execute
+2. **Mid Band**:
+   - Use "Mid Freq", "Mid Q", and "Mid Gain" to shape the bell filter
+   - Use "Threshold", "Ratio", "Attack", and "Release" to control the dynamics:
+     - When the input signal exceeds the threshold, the mid band gain is dynamically reduced
+     - Higher ratio values result in more gain reduction
+     - Attack and release control how quickly the dynamic processing responds
 
-```bash
-$ cmake -S . -B build
-$ cmake --build build
-```
+3. **Lowpass Filter**:
+   - Use the "LP Freq" knob to set the cutoff frequency
+   - Use the "LP Q" knob to adjust the resonance
 
-The first run will take the most time because the dependencies (CPM, JUCE, and googletest) need to be downloaded.
+## License
 
-Alternatively, you can use bundled CMake presets:
-
-```bash
-$ cmake --preset default # uses the Ninja build system
-$ cmake --build build
-$ ctest --preset default
-```
-
-Existing presets are `default`, `release`, and `Xcode`.
-
-To run clang-format on every commit, in the main directory execute
-
-```bash
-pre-commit install
-```
-
-(for this you may need to install `pre-commit` with `pip`: `pip install pre-commit`).
-
-Don't forget to change "YourPluginName" to, well, your plugin name everywhere 😉
-
-## How was this template built?
-
-See how I create this template step by step in this video:
-
-[![Audio plugin template tutorial video](http://img.youtube.com/vi/Uq7Hwt18s3s/0.jpg)](https://www.youtube.com/watch?v=Uq7Hwt18s3s "Audio plugin template tutorial video")
+See [LICENSE.md](LICENSE.md) file for details.
